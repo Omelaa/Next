@@ -1,3 +1,3 @@
 export default function About() {
-    return <h3>Select sybitems</h3>
+    return <h3>Select subitems</h3>
 };

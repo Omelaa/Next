@@ -1,33 +1,25 @@
-import Link from "next/link";
+'use client'
 
-async function getData() {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts/", {
-            next: {
-                revalidate: 60
-            }
-        }
-    );
+import {useEffect} from "react";
+import {shallow} from "zustand/shallow";
 
-    return response.json();
-};
+import {Posts, PostSearch} from "@/components";
 
-export default async function Blog() {
-    const posts = await getData();
+import {usePosts} from "@/store";
 
+export default function Blog() {
     return (
         <>
-            <h1>Blog page</h1>
-            <ul>
-                {
-                    posts.map((post: any) => (
-                        <li key={post.id}>
-                            <Link href={`/blog/${post.id}`}>
-                                {post.title}
-                            </Link>
-                        </li>
-                    ))
-                }
-            </ul>
+            {
+                loading ?
+                    <h1>Loading...</h1>
+                    :
+                    <>
+                        <h1>Blog page</h1>
+                        <PostSearch/>
+                        <Posts/>
+                    </>
+            }
         </>
     );
 };
